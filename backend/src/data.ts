@@ -1,0 +1,87 @@
+import { existsSync, readFileSync } from "fs";
+import { fileURLToPath } from "url";
+import path from "path";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const DATA_DIR = path.join(__dirname, "..", "data");
+
+export interface SurahMeta {
+  number: number;
+  name: string;
+  englishName: string;
+  englishNameTranslation: string;
+  revelationType: "Meccan" | "Medinan";
+  numberOfAyahs: number;
+}
+
+export interface Ayah {
+  numberInSurah: number;
+  arabic: string;
+  translation: string;
+}
+
+type QuranData = Record<string, Ayah[]>;
+
+function loadJson<T>(filename: string): T | null {
+  const filePath = path.join(DATA_DIR, filename);
+  if (!existsSync(filePath)) return null;
+  try {
+    return JSON.parse(readFileSync(filePath, "utf-8")) as T;
+  } catch (err) {
+    console.error(`Failed to parse ${filename}:`, err);
+    return null;
+  }
+}
+
+export const surahs: SurahMeta[] = loadJson<SurahMeta[]>("surahs.json") ?? [];
+
+// Prefer the full dataset (backend/data/quran.json) produced by `bun run fetch-data`.
+// Fall back to the small bundled sample so the app still runs out of the box.
+const fullData = loadJson<QuranData>("quran.json");
+const sampleData = loadJson<QuranData>("quran-sample.json") ?? {};
+export const quranData: QuranData = fullData
+  ? { ...sampleData, ...fullData }
+  : sampleData;
+
+export const isFullDatasetLoaded = Boolean(fullData);
+
+export function getSurahMeta(number: number): SurahMeta | undefined {
+  return surahs.find((s) => s.number === number);
+}
+
+export function getAyahs(number: number): Ayah[] | undefined {
+  return quranData[String(number)];
+}
+
+export function searchAyahs(query: string) {
+  const q = query.trim().toLowerCase();
+  if (!q) return [];
+
+  const results: {
+    surahNumber: number;
+    surahName: string;
+    surahEnglishName: string;
+    numberInSurah: number;
+    arabic: string;
+    translation: string;
+  }[] = [];
+
+  for (const [surahNumberStr, ayahs] of Object.entries(quranData)) {
+    const surahNumber = Number(surahNumberStr);
+    const meta = getSurahMeta(surahNumber);
+    for (const ayah of ayahs) {
+      if (ayah.translation.toLowerCase().includes(q)) {
+        results.push({
+          surahNumber,
+          surahName: meta?.name ?? "",
+          surahEnglishName: meta?.englishName ?? "",
+          numberInSurah: ayah.numberInSurah,
+          arabic: ayah.arabic,
+          translation: ayah.translation,
+        });
+      }
+    }
+  }
+
+  return results.sort((a, b) => a.surahNumber - b.surahNumber || a.numberInSurah - b.numberInSurah);
+}

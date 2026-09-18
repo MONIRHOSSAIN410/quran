@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Default styling for Arabic script text; per-ayah font family/size are
+   applied inline via the Settings sidebar (see AyahList.tsx). */
+.arabic-text {
+  direction: rtl;
+  text-align: right;
+  line-height: 2.4;
+  letter-spacing: 0;
+}
