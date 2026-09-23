@@ -5,9 +5,10 @@
   "description": "Quran API backend built with Hono, running on Bun.",
   "type": "module",
   "scripts": {
- "dev": "tsx watch src/index.ts",
-  "start": "tsx src/index.ts",
-  "fetch-data": "bun scripts/fetch-data.mjs"
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "fetch-data": "bun scripts/fetch-data.mjs",
+    "add-bangla": "bun scripts/add-bangla.mjs"
   },
   "dependencies": {
     "@hono/node-server": "^1.13.7",

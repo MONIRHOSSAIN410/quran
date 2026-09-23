@@ -9,6 +9,7 @@ const config: Config = {
         amiri: ["var(--font-amiri)", "serif"],
         scheherazade: ["var(--font-scheherazade)", "serif"],
         notoNaskh: ["var(--font-noto-naskh)", "serif"],
+        bengali: ["var(--font-noto-bengali)", "Noto Sans Bengali", "sans-serif"],
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
       },
       colors: {
