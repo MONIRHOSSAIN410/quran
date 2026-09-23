@@ -1,6 +1,6 @@
 "use client";
 
-import { ARABIC_FONTS, useSettings } from "./SettingsProvider";
+import { ARABIC_FONTS, LINES, useSettings } from "./SettingsProvider";
 
 export default function SettingsSidebar({
   open,
@@ -13,9 +13,13 @@ export default function SettingsSidebar({
     arabicFont,
     arabicFontSize,
     translationFontSize,
+    banglaFontSize,
     setArabicFont,
     setArabicFontSize,
     setTranslationFontSize,
+    setBanglaFontSize,
+    isLineVisible,
+    toggleLine,
     resetSettings,
     limits,
   } = useSettings();
@@ -53,6 +57,42 @@ export default function SettingsSidebar({
         </div>
 
         <div className="space-y-8 px-5 py-6">
+          <section>
+            <h3 className="mb-1 text-sm font-semibold uppercase tracking-wide text-brand-600 dark:text-brand-300">
+              Show under the Arabic
+            </h3>
+            <p className="mb-3 text-xs text-brand-400">
+              The Arabic text is always shown.
+            </p>
+            <div className="space-y-2">
+              {LINES.map((line) => (
+                <label
+                  key={line.key}
+                  className={`flex cursor-pointer items-center justify-between gap-3 rounded-lg border px-3 py-2.5 transition-colors ${
+                    isLineVisible(line.key)
+                      ? "border-brand-500 bg-brand-50 dark:border-brand-400 dark:bg-brand-900"
+                      : "border-brand-100 hover:border-brand-300 dark:border-brand-800"
+                  }`}
+                >
+                  <span>
+                    <span className="bangla-text block text-sm text-brand-900 dark:text-brand-50">
+                      {line.label}
+                    </span>
+                    <span className="block text-xs text-brand-400">
+                      {line.hint}
+                    </span>
+                  </span>
+                  <input
+                    type="checkbox"
+                    checked={isLineVisible(line.key)}
+                    onChange={() => toggleLine(line.key)}
+                    className="h-4 w-4 shrink-0 accent-brand-600"
+                  />
+                </label>
+              ))}
+            </div>
+          </section>
+
           <section>
             <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-brand-600 dark:text-brand-300">
               Arabic Font
@@ -106,7 +146,31 @@ export default function SettingsSidebar({
           <section>
             <div className="mb-3 flex items-center justify-between">
               <h3 className="text-sm font-semibold uppercase tracking-wide text-brand-600 dark:text-brand-300">
-                Translation Font Size
+                Bangla Font Size
+              </h3>
+              <span className="text-sm tabular-nums text-brand-500">
+                {banglaFontSize}px
+              </span>
+            </div>
+            <input
+              type="range"
+              min={limits.banglaFontSize.min}
+              max={limits.banglaFontSize.max}
+              step={limits.banglaFontSize.step}
+              value={banglaFontSize}
+              onChange={(e) => setBanglaFontSize(Number(e.target.value))}
+              className="w-full accent-brand-600"
+              aria-label="Bangla font size"
+            />
+            <p className="bangla-text mt-2 text-brand-400" style={{ fontSize: `${banglaFontSize}px` }}>
+              বিস্‌মিল্লাহির রাহ্‌মানির রাহীম
+            </p>
+          </section>
+
+          <section>
+            <div className="mb-3 flex items-center justify-between">
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-brand-600 dark:text-brand-300">
+                English Font Size
               </h3>
               <span className="text-sm tabular-nums text-brand-500">
                 {translationFontSize}px

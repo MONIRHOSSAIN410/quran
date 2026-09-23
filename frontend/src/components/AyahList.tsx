@@ -10,8 +10,13 @@ export default function AyahList({
   surahNumber: number;
   ayahs: Ayah[];
 }) {
-  const { arabicFontSize, translationFontSize, arabicFontClassName } =
-    useSettings();
+  const {
+    arabicFontSize,
+    translationFontSize,
+    banglaFontSize,
+    arabicFontClassName,
+    isLineVisible,
+  } = useSettings();
 
   return (
     <ol className="space-y-6">
@@ -38,12 +43,37 @@ export default function AyahList({
             {ayah.arabic}
           </p>
 
-          <p
-            className="leading-relaxed text-brand-700 dark:text-brand-200"
-            style={{ fontSize: `${translationFontSize}px` }}
-          >
-            {ayah.translation}
-          </p>
+          {/* বাংলা উচ্চারণ */}
+          {ayah.pronunciation && isLineVisible("pronunciation") && (
+            <p
+              lang="bn"
+              className="bangla-text mb-3 border-l-2 border-brand-200 pl-3 italic text-brand-600 dark:border-brand-800 dark:text-brand-300"
+              style={{ fontSize: `${banglaFontSize}px` }}
+            >
+              {ayah.pronunciation}
+            </p>
+          )}
+
+          {/* বাংলা অনুবাদ */}
+          {ayah.bangla && isLineVisible("bangla") && (
+            <p
+              lang="bn"
+              className="bangla-text mb-3 text-brand-800 dark:text-brand-100"
+              style={{ fontSize: `${banglaFontSize}px` }}
+            >
+              {ayah.bangla}
+            </p>
+          )}
+
+          {/* English */}
+          {isLineVisible("translation") && (
+            <p
+              className="leading-relaxed text-brand-700 dark:text-brand-200"
+              style={{ fontSize: `${translationFontSize}px` }}
+            >
+              {ayah.translation}
+            </p>
+          )}
         </li>
       ))}
     </ol>

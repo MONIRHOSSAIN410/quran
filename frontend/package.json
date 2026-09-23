@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "predev": "node scripts/sync-data.mjs",
-    "dev": "next dev",
+    "dev": "node init && next dev",
     "prebuild": "node scripts/sync-data.mjs",
-    "build": "next build",
-    "start": "next start",
+    "build": "node init && next build",
+    "start": "node init && next start",
     "lint": "next lint"
   },
   "dependencies": {

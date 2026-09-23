@@ -5,6 +5,8 @@ import type { SurahMeta, Ayah, SearchResult } from "./types";
  *
  * The goal is that *anything* the user might reasonably type finds something:
  *   - English translation text            -> "mercy", "forgiveness"
+ *   - বাংলা অনুবাদ                        -> "করুণাময়", "ক্ষমা"
+ *   - বাংলা উচ্চারণ                        -> "রাহমান", "আলহামদু"
  *   - Arabic text (with or without harakat) -> "الرحمن", "رحمن"
  *   - Surah names, any spelling           -> "Al-A'raf", "al araf", "alaraf", "الأعراف"
  *   - Surah meaning                       -> "The Heights"
@@ -13,9 +15,16 @@ import type { SurahMeta, Ayah, SearchResult } from "./types";
  */
 
 // Harakat / tatweel / Quranic annotation marks.
-const ARABIC_MARKS = /[ؐ-ًؚ-ٰٟۖ-ۭـ]/g;
+const ARABIC_MARKS = /[ؐ-ًؚ-ٰٟۖ-ۭـ]/g;
 
-/** Lowercase, strip accents & harakat, unify Arabic letter forms, collapse punctuation to spaces. */
+/**
+ * Lowercase, strip accents & harakat, unify Arabic letter forms, collapse
+ * punctuation to spaces.
+ *
+ * Bangla vowel signs, হসন্ত and ZWNJ fall away here too (they are combining
+ * marks, not letters), which makes Bangla matching forgiving: someone typing
+ * "রহমান" still finds "রাহ্‌মান".
+ */
 export function normalize(input: string): string {
   return input
     .toLowerCase()
@@ -39,6 +48,8 @@ export interface IndexedAyah extends SearchResult {
   nTranslation: string;
   cTranslation: string;
   cArabic: string;
+  cBangla: string;
+  cPronunciation: string;
 }
 
 export interface IndexedSurah {
@@ -72,15 +83,15 @@ export function buildAyahIndex(
   for (const surah of surahs) {
     for (const ayah of getAyahs(surah.number)) {
       index.push({
+        ...ayah,
         surahNumber: surah.number,
         surahName: surah.name,
         surahEnglishName: surah.englishName,
-        numberInSurah: ayah.numberInSurah,
-        arabic: ayah.arabic,
-        translation: ayah.translation,
         nTranslation: normalize(ayah.translation),
         cTranslation: compact(ayah.translation),
         cArabic: compact(ayah.arabic),
+        cBangla: compact(ayah.bangla ?? ""),
+        cPronunciation: compact(ayah.pronunciation ?? ""),
       });
     }
   }
@@ -143,11 +154,13 @@ export function search(
     })
     .map((s) => s.meta);
 
-  // 3. Ayahs — translation or Arabic text
+  // 3. Ayahs — English, বাংলা অনুবাদ, বাংলা উচ্চারণ or the Arabic text
   const matchedSurahNumbers = new Set(surahs.map((s) => s.number));
   const ayahs = ayahIndex.filter(
     (a) =>
       a.cTranslation.includes(q) ||
+      a.cBangla.includes(q) ||
+      a.cPronunciation.includes(q) ||
       a.cArabic.includes(q) ||
       // a surah matched by name/number: its ayahs belong in the results too
       matchedSurahNumbers.has(a.surahNumber)
