@@ -7,6 +7,7 @@ import {
   getAyahs,
   searchAyahs,
   isFullDatasetLoaded,
+  isBanglaDataLoaded,
 } from "./data";
 
 const app = new Hono();
@@ -17,6 +18,7 @@ app.get("/", (c) =>
   c.json({
     name: "Quran API",
     fullDatasetLoaded: isFullDatasetLoaded,
+    banglaDataLoaded: isBanglaDataLoaded,
     endpoints: [
       "GET /api/surahs",
       "GET /api/surahs/:number",
@@ -30,7 +32,8 @@ app.get("/api/surahs", (c) => {
   return c.json({ data: surahs, fullDatasetLoaded: isFullDatasetLoaded });
 });
 
-// A single surah with all of its ayahs (Arabic text + English translation).
+// A single surah with all of its ayahs (Arabic, বাংলা উচ্চারণ, বাংলা অনুবাদ,
+// English translation).
 app.get("/api/surahs/:number", (c) => {
   const number = Number(c.req.param("number"));
   if (!Number.isInteger(number) || number < 1 || number > 114) {
@@ -53,7 +56,8 @@ app.get("/api/surahs/:number", (c) => {
   });
 });
 
-// Search ayahs by translation text, e.g. /api/search?q=mercy
+// Search ayahs by English translation, বাংলা অনুবাদ or বাংলা উচ্চারণ,
+// e.g. /api/search?q=mercy  or  /api/search?q=করুণাময়
 app.get("/api/search", (c) => {
   const q = c.req.query("q") ?? "";
   if (!q.trim()) {
@@ -63,12 +67,17 @@ app.get("/api/search", (c) => {
   return c.json({ data: results, query: q, count: results.length });
 });
 
-const port = Number(process.env.PORT) || 3001;
+const port = Number(process.env.PORT) || 3002;
 
 console.log(`Quran API listening on http://localhost:${port}`);
 if (!isFullDatasetLoaded) {
   console.log(
     "Only sample data is loaded. Run `bun run fetch-data` (needs internet access) to download the full 114-surah database."
+  );
+}
+if (!isBanglaDataLoaded) {
+  console.log(
+    "No বাংলা উচ্চারণ / অনুবাদ in the dataset yet. Run `bun run add-bangla` to add them."
   );
 }
 

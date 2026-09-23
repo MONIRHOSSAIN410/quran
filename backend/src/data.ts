@@ -17,6 +17,11 @@ export interface SurahMeta {
 export interface Ayah {
   numberInSurah: number;
   arabic: string;
+  /** বাংলা উচ্চারণ — Bangla pronunciation of the Arabic. */
+  pronunciation?: string;
+  /** বাংলা অনুবাদ — Bangla translation (মুহিউদ্দীন খান). */
+  bangla?: string;
+  /** English translation (Sahih International). */
   translation: string;
 }
 
@@ -45,6 +50,11 @@ export const quranData: QuranData = fullData
 
 export const isFullDatasetLoaded = Boolean(fullData);
 
+/** True once `bun run add-bangla` (or `fetch-data`) has filled in the Bangla fields. */
+export const isBanglaDataLoaded = Object.values(quranData).some((ayahs) =>
+  ayahs.some((a) => Boolean(a.pronunciation))
+);
+
 export function getSurahMeta(number: number): SurahMeta | undefined {
   return surahs.find((s) => s.number === number);
 }
@@ -53,35 +63,39 @@ export function getAyahs(number: number): Ayah[] | undefined {
   return quranData[String(number)];
 }
 
-export function searchAyahs(query: string) {
+export interface AyahSearchResult extends Ayah {
+  surahNumber: number;
+  surahName: string;
+  surahEnglishName: string;
+}
+
+/**
+ * Searches the English translation, the বাংলা অনুবাদ and the বাংলা উচ্চারণ,
+ * so "mercy", "করুণাময়" and "রাহমান" all find something.
+ */
+export function searchAyahs(query: string): AyahSearchResult[] {
   const q = query.trim().toLowerCase();
   if (!q) return [];
 
-  const results: {
-    surahNumber: number;
-    surahName: string;
-    surahEnglishName: string;
-    numberInSurah: number;
-    arabic: string;
-    translation: string;
-  }[] = [];
+  const results: AyahSearchResult[] = [];
 
   for (const [surahNumberStr, ayahs] of Object.entries(quranData)) {
     const surahNumber = Number(surahNumberStr);
     const meta = getSurahMeta(surahNumber);
     for (const ayah of ayahs) {
-      if (ayah.translation.toLowerCase().includes(q)) {
+      const haystacks = [ayah.translation, ayah.bangla, ayah.pronunciation];
+      if (haystacks.some((text) => text?.toLowerCase().includes(q))) {
         results.push({
+          ...ayah,
           surahNumber,
           surahName: meta?.name ?? "",
           surahEnglishName: meta?.englishName ?? "",
-          numberInSurah: ayah.numberInSurah,
-          arabic: ayah.arabic,
-          translation: ayah.translation,
         });
       }
     }
   }
 
-  return results.sort((a, b) => a.surahNumber - b.surahNumber || a.numberInSurah - b.numberInSurah);
+  return results.sort(
+    (a, b) => a.surahNumber - b.surahNumber || a.numberInSurah - b.numberInSurah
+  );
 }
