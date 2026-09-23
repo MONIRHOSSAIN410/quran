@@ -1,16 +1,33 @@
 # Al-Qur'an Web App
 
-A full-stack Qur'an reader: 114 surahs with Arabic text and English translation,
-search, and a settings panel for fonts — built with Hono (Bun) on the backend
-and statically-generated Next.js + Tailwind CSS on the frontend.
+A full-stack Qur'an reader: 114 surahs with Arabic text, **বাংলা উচ্চারণ**,
+**বাংলা অনুবাদ** and English translation, search, and a settings panel for
+fonts and which lines to show — built with Hono (Bun) on the backend and
+statically-generated Next.js + Tailwind CSS on the frontend.
 
 ## Stack
 
 - **Backend:** Node.js / Hono, run with Bun (`backend/`)
 - **Frontend:** Next.js (App Router, static export / SSG) + Tailwind CSS (`frontend/`)
-- **Database:** Qur'an text + English translation, sourced from the free
+- **Database:** Qur'an text + translations, sourced from the free
   [Al Quran Cloud API](https://alquran.cloud/api) (Arabic: Uthmani script,
-  translation: Sahih International)
+  English: Sahih International) and
+  [quran-api](https://github.com/fawazahmed0/quran-api) (বাংলা অনুবাদ:
+  মুহিউদ্দীন খান). The বাংলা উচ্চারণ is generated offline from the Arabic —
+  see below.
+
+## Each ayah shows four lines
+
+| Line | Source |
+| --- | --- |
+| العربية | Uthmani script, Al Quran Cloud |
+| বাংলা উচ্চারণ | generated from the Arabic by `backend/src/bangla-translit.mjs` |
+| বাংলা অনুবাদ | মুহিউদ্দীন খান |
+| English | Sahih International |
+
+Each of the three lines under the Arabic can be switched on or off
+independently in the Settings sidebar; the Arabic is always shown. The choice
+is remembered on the device.
 
 ## ⚠️ About the bundled data
 
@@ -18,7 +35,7 @@ This project ships with a **small sample dataset** (9 short surahs: Al-Fatihah,
 Al-Asr, Al-Fil, Quraysh, Al-Kawthar, An-Nasr, Al-Ikhlas, Al-Falaq, An-Nas) so
 everything runs immediately with no setup. **The full 114-surah / 6236-ayah
 list and metadata for all surahs is already included** — only the ayah-by-ayah
-Arabic + translation text for the remaining surahs needs to be downloaded.
+text for the remaining surahs needs to be downloaded.
 
 To get the **complete** database, run the fetch script once, with internet
 access:
@@ -26,13 +43,45 @@ access:
 ```bash
 cd backend
 bun install          # or: npm install
-bun run fetch-data    # downloads all 114 surahs from api.alquran.cloud
+bun run fetch-data    # downloads all 114 surahs, then adds the Bangla fields
 ```
 
 This writes `backend/data/quran.json`. The backend API and the frontend build
 both automatically prefer this full file over the bundled sample the moment it
 exists — no code changes needed. Re-run the script any time; it resumes and
 only re-downloads surahs that failed.
+
+If you **already have** `backend/data/quran.json` and only want to add (or
+refresh) the two Bangla fields, there is no need to re-download the Arabic and
+English text:
+
+```bash
+cd backend
+bun run add-bangla    # or: node scripts/add-bangla.mjs
+```
+
+That regenerates বাংলা উচ্চারণ offline for every ayah and downloads the বাংলা
+অনুবাদ. Both scripts leave the existing `arabic` and `translation` fields
+untouched.
+
+## How the বাংলা উচ্চারণ is generated
+
+`backend/src/bangla-translit.mjs` converts the vowelled Uthmani Arabic into
+Bangla script, letter by letter. It handles short and long vowels, shadda
+(gemination), tanween, the aw/ay diphthongs, the definite article including
+sun-letter assimilation (ٱلرَّحْمَٰن → আর্রাহ্‌মান), hamzatul wasl, and the
+disconnected letters that open 29 surahs (يسٓ → ইয়া সীন, not ইয়্‌স).
+
+**It is a reading aid, not a tajweed engine.** It deliberately does not apply
+the rules that depend on what follows — ইখফা, ইক্বলাব, ইদগাম, madd lengths,
+ক্বালক্বালা — and several Arabic letters necessarily collapse onto one Bangla
+letter because Bangla has no separate sign for them (ث/ص → ছ, ذ/ز/ظ → য,
+ت/ط → ত, ك/ق → ক, ح/ه → হ). উচ্চারণ can never replace learning to read the
+Arabic script itself, or a qualified teacher.
+
+The mapping lives in one table at the top of that file, so it is easy to adjust
+if you prefer a different convention (e.g. ক্ব for ق, or দ্ব for ض). After
+editing it, re-run `bun run add-bangla`.
 
 ## Project layout
 
@@ -43,8 +92,11 @@ quran-app/
 │   │   ├── surahs.json      All 114 surahs' metadata (Arabic/English names, ayah counts)
 │   │   ├── quran-sample.json  Bundled sample ayah text (9 surahs)
 │   │   └── quran.json       Full ayah text — created by `bun run fetch-data`
-│   ├── scripts/fetch-data.mjs
+│   ├── scripts/
+│   │   ├── fetch-data.mjs   Downloads Arabic + English, then calls add-bangla
+│   │   └── add-bangla.mjs   Adds বাংলা উচ্চারণ (offline) + বাংলা অনুবাদ
 │   └── src/
+│       ├── bangla-translit.mjs  Arabic -> বাংলা উচ্চারণ converter
 │       ├── data.ts          Data loading/merging + search logic
 │       └── index.ts         Hono app: /api/surahs, /api/surahs/:number, /api/search
 └── frontend/                 Next.js app (static export)
@@ -111,22 +163,25 @@ separately if you want other clients to consume the same data.
 - **Responsive UI** — usable from a phone up to a wide desktop screen.
 - **Surah List** — all 114 surahs with Arabic and English names, ayah counts,
   and Meccan/Medinan classification.
-- **Ayat page** — every ayah of the selected surah with Arabic text and
+- **Ayat page** — every ayah with Arabic text, বাংলা উচ্চারণ, বাংলা অনুবাদ and
   English translation, prev/next surah navigation.
-- **Search** — search ayahs by translation text, with match highlighting and
-  a deep link back to the ayah in context.
-- **Settings sidebar** — choose between 3 Arabic fonts (Amiri, Scheherazade
-  New, Noto Naskh Arabic), adjust Arabic and translation font sizes
-  independently; all persisted to `localStorage` and restored on your next
-  visit.
+- **Search** — search ayahs by বাংলা অনুবাদ, বাংলা উচ্চারণ, English translation
+  or Arabic text, with match highlighting and a deep link back to the ayah in
+  context. Bangla matching ignores matras and হসন্ত, so typing "রহমান" still
+  finds "রাহ্‌মান".
+- **Settings sidebar** — show/hide each of the three lines under the Arabic;
+  choose between 3 Arabic fonts (Amiri, Scheherazade New, Noto Naskh Arabic);
+  adjust Arabic, Bangla and English font sizes independently; all persisted to
+  `localStorage` and restored on your next visit.
 
 ## Notes / known limitations
 
-- This project's code was generated in a network-restricted sandbox that
-  could not run `npm install` or `next build`, so the app could not be
-  built/run end-to-end before delivery. The code was written carefully
-  against standard Next.js App Router / Hono / Tailwind conventions and
-  syntax-checked with `tsc`, but please run `npm run dev` / `bun run dev`
-  yourself and report anything that needs fixing.
+- The বাংলা উচ্চারণ is generated, not hand-checked — see the section above for
+  what it does and does not do.
+- The Search page imports the whole dataset so it can run client-side with no
+  backend. With all four lines that is a ~1.6 MB first load for `/search`
+  (other pages are unaffected, ~97 kB). If that matters for your deployment,
+  the fix is to build a trimmed search index at build time rather than
+  importing `quran.json` directly.
 - Only 9 short surahs ship with real ayah text out of the box; run
   `bun run fetch-data` for the complete Qur'an.

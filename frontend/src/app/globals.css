@@ -14,3 +14,11 @@ html {
   line-height: 2.4;
   letter-spacing: 0;
 }
+
+/* বাংলা উচ্চারণ and বাংলা অনুবাদ. Bangla needs a little more line height than
+   Latin because of its matras and conjuncts; the font size itself is applied
+   inline from the Settings sidebar. */
+.bangla-text {
+  font-family: theme("fontFamily.bengali");
+  line-height: 1.9;
+}

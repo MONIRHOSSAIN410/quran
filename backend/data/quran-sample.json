@@ -1,60 +1,300 @@
 {
   "1": [
-    { "numberInSurah": 1, "arabic": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", "translation": "In the name of Allah, the Entirely Merciful, the Especially Merciful." },
-    { "numberInSurah": 2, "arabic": "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ", "translation": "[All] praise is [due] to Allah, Lord of the worlds -" },
-    { "numberInSurah": 3, "arabic": "الرَّحْمَٰنِ الرَّحِيمِ", "translation": "The Entirely Merciful, the Especially Merciful," },
-    { "numberInSurah": 4, "arabic": "مَالِكِ يَوْمِ الدِّينِ", "translation": "Sovereign of the Day of Recompense." },
-    { "numberInSurah": 5, "arabic": "إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ", "translation": "It is You we worship and You we ask for help." },
-    { "numberInSurah": 6, "arabic": "اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ", "translation": "Guide us to the straight path -" },
-    { "numberInSurah": 7, "arabic": "صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ", "translation": "The path of those upon whom You have bestowed favor, not of those who have evoked [Your] anger or of those who are astray." }
+    {
+      "numberInSurah": 1,
+      "arabic": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+      "pronunciation": "বিস্‌মি ল্‌ল্লাহি ল্‌র্রাহ্‌মানি ল্‌র্রাহীমি",
+      "bangla": "শুরু করছি আল্লাহর নামে যিনি পরম করুণাময়, অতি দয়ালু।",
+      "translation": "In the name of Allah, the Entirely Merciful, the Especially Merciful."
+    },
+    {
+      "numberInSurah": 2,
+      "arabic": "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ",
+      "pronunciation": "ল্‌হাম্‌দু লিল্লাহি রাব্বি ল'আলামীনা",
+      "bangla": "যাবতীয় প্রশংসা আল্লাহ তাআলার যিনি সকল সৃষ্টি জগতের পালনকর্তা।",
+      "translation": "[All] praise is [due] to Allah, Lord of the worlds -"
+    },
+    {
+      "numberInSurah": 3,
+      "arabic": "الرَّحْمَٰنِ الرَّحِيمِ",
+      "pronunciation": "ল্‌র্রাহ্‌মানি ল্‌র্রাহীমি",
+      "bangla": "যিনি নিতান্ত মেহেরবান ও দয়ালু।",
+      "translation": "The Entirely Merciful, the Especially Merciful,"
+    },
+    {
+      "numberInSurah": 4,
+      "arabic": "مَالِكِ يَوْمِ الدِّينِ",
+      "pronunciation": "মালিকি ইয়াওমি ল্‌দ্দীনি",
+      "bangla": "যিনি বিচার দিনের মালিক।",
+      "translation": "Sovereign of the Day of Recompense."
+    },
+    {
+      "numberInSurah": 5,
+      "arabic": "إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ",
+      "pronunciation": "ইয়্যাকা না'বুদু ওয়াইয়্যাকা নাস্‌তা'ঈনু",
+      "bangla": "আমরা একমাত্র তোমারই ইবাদত করি এবং শুধুমাত্র তোমারই সাহায্য প্রার্থনা করি।",
+      "translation": "It is You we worship and You we ask for help."
+    },
+    {
+      "numberInSurah": 6,
+      "arabic": "اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ",
+      "pronunciation": "হ্‌দিনা ল্‌ছ্ছিরাতা ল্‌মুস্‌তাকীমা",
+      "bangla": "আমাদেরকে সরল পথ দেখাও",
+      "translation": "Guide us to the straight path -"
+    },
+    {
+      "numberInSurah": 7,
+      "arabic": "صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",
+      "pronunciation": "ছিরাতা লাযীনা আন'আম্‌তা 'আলাইহিম গাইরি ল্‌মাগ্‌দূবি 'আলাইহিম ওয়ালা ল্‌দ্দাল্লীনা",
+      "bangla": "সে সমস্ত লোকের পথ, যাদেরকে তুমি নেয়ামত দান করেছ। তাদের পথ নয়, যাদের প্রতি তোমার গজব নাযিল হয়েছে এবং যারা পথভ্রষ্ট হয়েছে।",
+      "translation": "The path of those upon whom You have bestowed favor, not of those who have evoked [Your] anger or of those who are astray."
+    }
   ],
   "103": [
-    { "numberInSurah": 1, "arabic": "وَالْعَصْرِ", "translation": "By time," },
-    { "numberInSurah": 2, "arabic": "إِنَّ الْإِنْسَانَ لَفِي خُسْرٍ", "translation": "Indeed, mankind is in loss," },
-    { "numberInSurah": 3, "arabic": "إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ", "translation": "Except for those who have believed and done righteous deeds and advised each other to truth and advised each other to patience." }
+    {
+      "numberInSurah": 1,
+      "arabic": "وَالْعَصْرِ",
+      "pronunciation": "ওয়াল'আছ্‌রি",
+      "bangla": "কসম যুগের (সময়ের)",
+      "translation": "By time,"
+    },
+    {
+      "numberInSurah": 2,
+      "arabic": "إِنَّ الْإِنْسَانَ لَفِي خُسْرٍ",
+      "pronunciation": "ইন্না লইন্‌সানা লাফী খুস্‌রিন",
+      "bangla": "নিশ্চয় মানুষ ক্ষতিগ্রস্ত",
+      "translation": "Indeed, mankind is in loss,"
+    },
+    {
+      "numberInSurah": 3,
+      "arabic": "إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ",
+      "pronunciation": "ইল্লা লাযীনা মানূ ওয়া'আমিলূ ল্‌ছ্ছালিহাতি ওয়াতাওয়াছাও বিল্‌হাক্কি ওয়াতাওয়াছাও বিল্‌ছ্ছাব্‌রি",
+      "bangla": "কিন্তু তারা নয়, যারা বিশ্বাস স্থাপন করে ও সৎকর্ম করে এবং পরস্পরকে তাকীদ করে সত্যের এবং তাকীদ করে সবরের।",
+      "translation": "Except for those who have believed and done righteous deeds and advised each other to truth and advised each other to patience."
+    }
   ],
   "105": [
-    { "numberInSurah": 1, "arabic": "أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحَابِ الْفِيلِ", "translation": "Have you not considered, [O Muhammad], how your Lord dealt with the companions of the elephant?" },
-    { "numberInSurah": 2, "arabic": "أَلَمْ يَجْعَلْ كَيْدَهُمْ فِي تَضْلِيلٍ", "translation": "Did He not make their plan into misguidance?" },
-    { "numberInSurah": 3, "arabic": "وَأَرْسَلَ عَلَيْهِمْ طَيْرًا أَبَابِيلَ", "translation": "And He sent against them birds in flocks," },
-    { "numberInSurah": 4, "arabic": "تَرْمِيهِمْ بِحِجَارَةٍ مِنْ سِجِّيلٍ", "translation": "Striking them with stones of hard clay," },
-    { "numberInSurah": 5, "arabic": "فَجَعَلَهُمْ كَعَصْفٍ مَأْكُولٍ", "translation": "And He made them like eaten straw." }
+    {
+      "numberInSurah": 1,
+      "arabic": "أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحَابِ الْفِيلِ",
+      "pronunciation": "আলাম তারা কাইফা ফা'আলা রাব্বুকা বিআছ্‌হাবি ল্‌ফীলি",
+      "bangla": "আপনি কি দেখেননি আপনার পালনকর্তা হস্তীবাহিনীর সাথে কিরূপ ব্যবহার করেছেন",
+      "translation": "Have you not considered, [O Muhammad], how your Lord dealt with the companions of the elephant?"
+    },
+    {
+      "numberInSurah": 2,
+      "arabic": "أَلَمْ يَجْعَلْ كَيْدَهُمْ فِي تَضْلِيلٍ",
+      "pronunciation": "আলাম ইয়াজ'আল কাইদাহুম ফী তাদ্‌লীলিন",
+      "bangla": "তিনি কি তাদের চক্রান্ত নস্যাৎ করে দেননি",
+      "translation": "Did He not make their plan into misguidance?"
+    },
+    {
+      "numberInSurah": 3,
+      "arabic": "وَأَرْسَلَ عَلَيْهِمْ طَيْرًا أَبَابِيلَ",
+      "pronunciation": "ওয়াআর্‌সালা 'আলাইহিম তাইরান আবাবীলা",
+      "bangla": "তিনি তাদের উপর প্রেরণ করেছেন ঝাঁকে ঝাঁকে পাখী",
+      "translation": "And He sent against them birds in flocks,"
+    },
+    {
+      "numberInSurah": 4,
+      "arabic": "تَرْمِيهِمْ بِحِجَارَةٍ مِنْ سِجِّيلٍ",
+      "pronunciation": "তার্‌মীহিম বিহিজারাতিন মিন সিজ্জীলিন",
+      "bangla": "যারা তাদের উপর পাথরের কংকর নিক্ষেপ করছিল।",
+      "translation": "Striking them with stones of hard clay,"
+    },
+    {
+      "numberInSurah": 5,
+      "arabic": "فَجَعَلَهُمْ كَعَصْفٍ مَأْكُولٍ",
+      "pronunciation": "ফাজা'আলাহুম কা'আছ্‌ফিন মা'কূলিন",
+      "bangla": "অতঃপর তিনি তাদেরকে ভক্ষিত তৃণসদৃশ করে দেন।",
+      "translation": "And He made them like eaten straw."
+    }
   ],
   "106": [
-    { "numberInSurah": 1, "arabic": "لِإِيلَافِ قُرَيْشٍ", "translation": "For the accustomed security of the Quraysh -" },
-    { "numberInSurah": 2, "arabic": "إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ", "translation": "Their accustomed security [in] the caravan of winter and summer -" },
-    { "numberInSurah": 3, "arabic": "فَلْيَعْبُدُوا رَبَّ هَٰذَا الْبَيْتِ", "translation": "Let them worship the Lord of this House," },
-    { "numberInSurah": 4, "arabic": "الَّذِي أَطْعَمَهُمْ مِنْ جُوعٍ وَآمَنَهُمْ مِنْ خَوْفٍ", "translation": "Who has fed them, [saving them] from hunger and made them safe, [saving them] from fear." }
+    {
+      "numberInSurah": 1,
+      "arabic": "لِإِيلَافِ قُرَيْشٍ",
+      "pronunciation": "লিঈলাফি কুরাইশিন",
+      "bangla": "কোরাইশের আসক্তির কারণে",
+      "translation": "For the accustomed security of the Quraysh -"
+    },
+    {
+      "numberInSurah": 2,
+      "arabic": "إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ",
+      "pronunciation": "ঈলাফিহিম রিহ্‌লাতা ল্‌শ্শিতাই ওয়াল্‌ছ্ছাইফি",
+      "bangla": "আসক্তির কারণে তাদের শীত ও গ্রীষ্মকালীন সফরের।",
+      "translation": "Their accustomed security [in] the caravan of winter and summer -"
+    },
+    {
+      "numberInSurah": 3,
+      "arabic": "فَلْيَعْبُدُوا رَبَّ هَٰذَا الْبَيْتِ",
+      "pronunciation": "ফাল্‌য়া'বুদূ রাব্বা হাযা ল্‌বাইতি",
+      "bangla": "অতএব তারা যেন এবাদত করে এই ঘরের পালনকর্তার",
+      "translation": "Let them worship the Lord of this House,"
+    },
+    {
+      "numberInSurah": 4,
+      "arabic": "الَّذِي أَطْعَمَهُمْ مِنْ جُوعٍ وَآمَنَهُمْ مِنْ خَوْفٍ",
+      "pronunciation": "লাযী আত'আমাহুম মিন জূ'ইন ওয়ামানাহুম মিন খাওফিন",
+      "bangla": "যিনি তাদেরকে ক্ষুধায় আহার দিয়েছেন এবং যুদ্ধভীতি থেকে তাদেরকে নিরাপদ করেছেন।",
+      "translation": "Who has fed them, [saving them] from hunger and made them safe, [saving them] from fear."
+    }
   ],
   "108": [
-    { "numberInSurah": 1, "arabic": "إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ", "translation": "Indeed, We have granted you, [O Muhammad], al-Kawthar." },
-    { "numberInSurah": 2, "arabic": "فَصَلِّ لِرَبِّكَ وَانْحَرْ", "translation": "So pray to your Lord and sacrifice [to Him alone]." },
-    { "numberInSurah": 3, "arabic": "إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ", "translation": "Indeed, your enemy is the one cut off." }
+    {
+      "numberInSurah": 1,
+      "arabic": "إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ",
+      "pronunciation": "ইন্না আ'তাইনাকা ল্‌কাওছারা",
+      "bangla": "নিশ্চয় আমি আপনাকে কাওসার দান করেছি।",
+      "translation": "Indeed, We have granted you, [O Muhammad], al-Kawthar."
+    },
+    {
+      "numberInSurah": 2,
+      "arabic": "فَصَلِّ لِرَبِّكَ وَانْحَرْ",
+      "pronunciation": "ফাছাল্লি লিরাব্বিকা ওয়ান্‌হার",
+      "bangla": "অতএব আপনার পালনকর্তার উদ্দেশ্যে নামায পড়ুন এবং কোরবানী করুন।",
+      "translation": "So pray to your Lord and sacrifice [to Him alone]."
+    },
+    {
+      "numberInSurah": 3,
+      "arabic": "إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ",
+      "pronunciation": "ইন্না শানিআকা হুওয়া লআব্‌তারু",
+      "bangla": "যে আপনার শত্রু, সেই তো লেজকাটা, নির্বংশ।",
+      "translation": "Indeed, your enemy is the one cut off."
+    }
   ],
   "110": [
-    { "numberInSurah": 1, "arabic": "إِذَا جَاءَ نَصْرُ اللَّهِ وَالْفَتْحُ", "translation": "When the victory of Allah has come and the conquest," },
-    { "numberInSurah": 2, "arabic": "وَرَأَيْتَ النَّاسَ يَدْخُلُونَ فِي دِينِ اللَّهِ أَفْوَاجًا", "translation": "And you see the people entering into the religion of Allah in multitudes," },
-    { "numberInSurah": 3, "arabic": "فَسَبِّحْ بِحَمْدِ رَبِّكَ وَاسْتَغْفِرْهُ ۚ إِنَّهُ كَانَ تَوَّابًا", "translation": "Then exalt [Him] with praise of your Lord and ask forgiveness of Him. Indeed, He is ever Accepting of repentance." }
+    {
+      "numberInSurah": 1,
+      "arabic": "إِذَا جَاءَ نَصْرُ اللَّهِ وَالْفَتْحُ",
+      "pronunciation": "ইযা জাআ নাছ্‌রু ল্‌ল্লাহি ওয়াল্‌ফাত্‌হু",
+      "bangla": "যখন আসবে আল্লাহর সাহায্য ও বিজয়",
+      "translation": "When the victory of Allah has come and the conquest,"
+    },
+    {
+      "numberInSurah": 2,
+      "arabic": "وَرَأَيْتَ النَّاسَ يَدْخُلُونَ فِي دِينِ اللَّهِ أَفْوَاجًا",
+      "pronunciation": "ওয়ারাআইতা ল্‌ন্নাসা ইয়াদ্‌খুলূনা ফী দীনি ল্‌ল্লাহি আফ্‌ওয়াজান",
+      "bangla": "এবং আপনি মানুষকে দলে দলে আল্লাহর দ্বীনে প্রবেশ করতে দেখবেন",
+      "translation": "And you see the people entering into the religion of Allah in multitudes,"
+    },
+    {
+      "numberInSurah": 3,
+      "arabic": "فَسَبِّحْ بِحَمْدِ رَبِّكَ وَاسْتَغْفِرْهُ ۚ إِنَّهُ كَانَ تَوَّابًا",
+      "pronunciation": "ফাসাব্বিহ বিহাম্‌দি রাব্বিকা ওয়াস্‌তাগ্‌ফির্‌হু ইন্নাহু কানা তাওয়্ওয়াবান",
+      "bangla": "তখন আপনি আপনার পালনকর্তার পবিত্রতা বর্ণনা করুন এবং তাঁর কাছে ক্ষমা প্রার্থনা করুন। নিশ্চয় তিনি ক্ষমাকারী।",
+      "translation": "Then exalt [Him] with praise of your Lord and ask forgiveness of Him. Indeed, He is ever Accepting of repentance."
+    }
   ],
   "112": [
-    { "numberInSurah": 1, "arabic": "قُلْ هُوَ اللَّهُ أَحَدٌ", "translation": "Say, \"He is Allah, [who is] One," },
-    { "numberInSurah": 2, "arabic": "اللَّهُ الصَّمَدُ", "translation": "Allah, the Eternal Refuge." },
-    { "numberInSurah": 3, "arabic": "لَمْ يَلِدْ وَلَمْ يُولَدْ", "translation": "He neither begets nor is born," },
-    { "numberInSurah": 4, "arabic": "وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ", "translation": "Nor is there to Him any equivalent.\"" }
+    {
+      "numberInSurah": 1,
+      "arabic": "قُلْ هُوَ اللَّهُ أَحَدٌ",
+      "pronunciation": "কুল হুওয়া ল্‌ল্লাহু আহাদুন",
+      "bangla": "বলুন, তিনি আল্লাহ, এক",
+      "translation": "Say, \"He is Allah, [who is] One,"
+    },
+    {
+      "numberInSurah": 2,
+      "arabic": "اللَّهُ الصَّمَدُ",
+      "pronunciation": "ল্‌ল্লাহু ল্‌ছ্ছামাদু",
+      "bangla": "আল্লাহ অমুখাপেক্ষী",
+      "translation": "Allah, the Eternal Refuge."
+    },
+    {
+      "numberInSurah": 3,
+      "arabic": "لَمْ يَلِدْ وَلَمْ يُولَدْ",
+      "pronunciation": "লাম ইয়ালিদ ওয়ালাম ইয়ূলাদ",
+      "bangla": "তিনি কাউকে জন্ম দেননি এবং কেউ তাকে জন্ম দেয়নি",
+      "translation": "He neither begets nor is born,"
+    },
+    {
+      "numberInSurah": 4,
+      "arabic": "وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ",
+      "pronunciation": "ওয়ালাম ইয়াকুন লাহু কুফুওয়ান আহাদুন",
+      "bangla": "এবং তার সমতুল্য কেউ নেই।",
+      "translation": "Nor is there to Him any equivalent.\""
+    }
   ],
   "113": [
-    { "numberInSurah": 1, "arabic": "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ", "translation": "Say, \"I seek refuge in the Lord of daybreak" },
-    { "numberInSurah": 2, "arabic": "مِنْ شَرِّ مَا خَلَقَ", "translation": "From the evil of that which He created" },
-    { "numberInSurah": 3, "arabic": "وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ", "translation": "And from the evil of darkness when it settles" },
-    { "numberInSurah": 4, "arabic": "وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ", "translation": "And from the evil of the blowers in knots" },
-    { "numberInSurah": 5, "arabic": "وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ", "translation": "And from the evil of an envier when he envies.\"" }
+    {
+      "numberInSurah": 1,
+      "arabic": "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ",
+      "pronunciation": "কুল আ'ঊযু বিরাব্বি ল্‌ফালাকি",
+      "bangla": "বলুন, আমি আশ্রয় গ্রহণ করছি প্রভাতের পালনকর্তার",
+      "translation": "Say, \"I seek refuge in the Lord of daybreak"
+    },
+    {
+      "numberInSurah": 2,
+      "arabic": "مِنْ شَرِّ مَا خَلَقَ",
+      "pronunciation": "মিন শার্রি মা খালাকা",
+      "bangla": "তিনি যা সৃষ্টি করেছেন, তার অনিষ্ট থেকে",
+      "translation": "From the evil of that which He created"
+    },
+    {
+      "numberInSurah": 3,
+      "arabic": "وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ",
+      "pronunciation": "ওয়ামিন শার্রি গাসিকিন ইযা ওয়াকাবা",
+      "bangla": "অন্ধকার রাত্রির অনিষ্ট থেকে, যখন তা সমাগত হয়",
+      "translation": "And from the evil of darkness when it settles"
+    },
+    {
+      "numberInSurah": 4,
+      "arabic": "وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ",
+      "pronunciation": "ওয়ামিন শার্রি ল্‌ন্নাফ্ফাছাতি ফী ল'উকাদি",
+      "bangla": "গ্রন্থিতে ফুঁৎকার দিয়ে জাদুকারিনীদের অনিষ্ট থেকে",
+      "translation": "And from the evil of the blowers in knots"
+    },
+    {
+      "numberInSurah": 5,
+      "arabic": "وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+      "pronunciation": "ওয়ামিন শার্রি হাসিদিন ইযা হাসাদা",
+      "bangla": "এবং হিংসুকের অনিষ্ট থেকে যখন সে হিংসা করে।",
+      "translation": "And from the evil of an envier when he envies.\""
+    }
   ],
   "114": [
-    { "numberInSurah": 1, "arabic": "قُلْ أَعُوذُ بِرَبِّ النَّاسِ", "translation": "Say, \"I seek refuge in the Lord of mankind," },
-    { "numberInSurah": 2, "arabic": "مَلِكِ النَّاسِ", "translation": "The Sovereign of mankind," },
-    { "numberInSurah": 3, "arabic": "إِلَٰهِ النَّاسِ", "translation": "The God of mankind," },
-    { "numberInSurah": 4, "arabic": "مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ", "translation": "From the evil of the retreating whisperer -" },
-    { "numberInSurah": 5, "arabic": "الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ", "translation": "Who whispers [evil] into the breasts of mankind -" },
-    { "numberInSurah": 6, "arabic": "مِنَ الْجِنَّةِ وَالنَّاسِ", "translation": "From among the jinn and mankind.\"" }
+    {
+      "numberInSurah": 1,
+      "arabic": "قُلْ أَعُوذُ بِرَبِّ النَّاسِ",
+      "pronunciation": "কুল আ'ঊযু বিরাব্বি ল্‌ন্নাসি",
+      "bangla": "বলুন, আমি আশ্রয় গ্রহণ করিতেছি মানুষের পালনকর্তার",
+      "translation": "Say, \"I seek refuge in the Lord of mankind,"
+    },
+    {
+      "numberInSurah": 2,
+      "arabic": "مَلِكِ النَّاسِ",
+      "pronunciation": "মালিকি ল্‌ন্নাসি",
+      "bangla": "মানুষের অধিপতির",
+      "translation": "The Sovereign of mankind,"
+    },
+    {
+      "numberInSurah": 3,
+      "arabic": "إِلَٰهِ النَّاسِ",
+      "pronunciation": "ইলাহি ল্‌ন্নাসি",
+      "bangla": "মানুষের মা’বুদের",
+      "translation": "The God of mankind,"
+    },
+    {
+      "numberInSurah": 4,
+      "arabic": "مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ",
+      "pronunciation": "মিন শার্রি ল্‌ওয়াস্‌ওয়াসি ল্‌খান্নাসি",
+      "bangla": "তার অনিষ্ট থেকে, যে কুমন্ত্রণা দেয় ও আত্নগোপন করে",
+      "translation": "From the evil of the retreating whisperer -"
+    },
+    {
+      "numberInSurah": 5,
+      "arabic": "الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ",
+      "pronunciation": "লাযী ইয়ুওয়াস্‌ওয়িসু ফী ছুদূরি ল্‌ন্নাসি",
+      "bangla": "যে কুমন্ত্রণা দেয় মানুষের অন্তরে",
+      "translation": "Who whispers [evil] into the breasts of mankind -"
+    },
+    {
+      "numberInSurah": 6,
+      "arabic": "مِنَ الْجِنَّةِ وَالنَّاسِ",
+      "pronunciation": "মিনা ল্‌জিন্নাতি ওয়াল্‌ন্নাসি",
+      "bangla": "জ্বিনের মধ্য থেকে অথবা মানুষের মধ্য থেকে।",
+      "translation": "From among the jinn and mankind.\""
+    }
   ]
 }

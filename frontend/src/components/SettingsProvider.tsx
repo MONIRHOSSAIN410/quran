@@ -17,35 +17,66 @@ export const ARABIC_FONTS: { key: ArabicFontKey; label: string; className: strin
   { key: "notoNaskh", label: "Noto Naskh Arabic", className: "font-notoNaskh" },
 ];
 
+/** The lines that can be shown under the Arabic, in the order they appear. */
+export type LineKey = "pronunciation" | "bangla" | "translation";
+
+export const LINES: { key: LineKey; label: string; hint: string }[] = [
+  { key: "pronunciation", label: "বাংলা উচ্চারণ", hint: "Bangla pronunciation" },
+  { key: "bangla", label: "বাংলা অনুবাদ", hint: "Bangla translation" },
+  { key: "translation", label: "English", hint: "Sahih International" },
+];
+
 interface Settings {
   arabicFont: ArabicFontKey;
   arabicFontSize: number; // px
-  translationFontSize: number; // px
+  translationFontSize: number; // px, English
+  banglaFontSize: number; // px, উচ্চারণ + অনুবাদ
+  showPronunciation: boolean;
+  showBangla: boolean;
+  showTranslation: boolean;
 }
 
 const DEFAULT_SETTINGS: Settings = {
   arabicFont: "amiri",
   arabicFontSize: 32,
   translationFontSize: 16,
+  banglaFontSize: 17,
+  showPronunciation: true,
+  showBangla: true,
+  showTranslation: true,
 };
 
 const LIMITS = {
   arabicFontSize: { min: 20, max: 56, step: 2 },
   translationFontSize: { min: 12, max: 28, step: 1 },
+  banglaFontSize: { min: 12, max: 30, step: 1 },
 };
 
 const STORAGE_KEY = "quran-app:settings";
+
+const VISIBILITY_KEY: Record<LineKey, keyof Settings> = {
+  pronunciation: "showPronunciation",
+  bangla: "showBangla",
+  translation: "showTranslation",
+};
 
 interface SettingsContextValue extends Settings {
   setArabicFont: (font: ArabicFontKey) => void;
   setArabicFontSize: (size: number) => void;
   setTranslationFontSize: (size: number) => void;
+  setBanglaFontSize: (size: number) => void;
+  isLineVisible: (line: LineKey) => boolean;
+  toggleLine: (line: LineKey) => void;
   resetSettings: () => void;
   limits: typeof LIMITS;
   arabicFontClassName: string;
 }
 
 const SettingsContext = createContext<SettingsContextValue | null>(null);
+
+function clamp(value: number, key: keyof typeof LIMITS) {
+  return Math.min(LIMITS[key].max, Math.max(LIMITS[key].min, value));
+}
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
@@ -81,23 +112,28 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const setArabicFontSize = useCallback((size: number) => {
-    setSettings((s) => ({
-      ...s,
-      arabicFontSize: Math.min(
-        LIMITS.arabicFontSize.max,
-        Math.max(LIMITS.arabicFontSize.min, size)
-      ),
-    }));
+    setSettings((s) => ({ ...s, arabicFontSize: clamp(size, "arabicFontSize") }));
   }, []);
 
   const setTranslationFontSize = useCallback((size: number) => {
     setSettings((s) => ({
       ...s,
-      translationFontSize: Math.min(
-        LIMITS.translationFontSize.max,
-        Math.max(LIMITS.translationFontSize.min, size)
-      ),
+      translationFontSize: clamp(size, "translationFontSize"),
     }));
+  }, []);
+
+  const setBanglaFontSize = useCallback((size: number) => {
+    setSettings((s) => ({ ...s, banglaFontSize: clamp(size, "banglaFontSize") }));
+  }, []);
+
+  const isLineVisible = useCallback(
+    (line: LineKey) => Boolean(settings[VISIBILITY_KEY[line]]),
+    [settings]
+  );
+
+  const toggleLine = useCallback((line: LineKey) => {
+    const key = VISIBILITY_KEY[line];
+    setSettings((s) => ({ ...s, [key]: !s[key] }));
   }, []);
 
   const resetSettings = useCallback(() => setSettings(DEFAULT_SETTINGS), []);
@@ -113,6 +149,9 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         setArabicFont,
         setArabicFontSize,
         setTranslationFontSize,
+        setBanglaFontSize,
+        isLineVisible,
+        toggleLine,
         resetSettings,
         limits: LIMITS,
         arabicFontClassName,

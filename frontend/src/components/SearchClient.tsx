@@ -16,7 +16,7 @@ const PAGE_SIZE = 50;
 /**
  * Compacts text the same way the search does, while keeping a map back to the
  * original character offsets — so a match on "alaraf" can still be highlighted
- * inside "Al-A'raf".
+ * inside "Al-A'raf", and a match on "রহমান" inside "রাহ্‌মান".
  */
 function compactWithMap(text: string) {
   let out = "";
@@ -53,7 +53,7 @@ function highlight(text: string, query: string) {
 export default function SearchClient() {
   const [query, setQuery] = useState("");
   const [visible, setVisible] = useState(PAGE_SIZE);
-  const { translationFontSize } = useSettings();
+  const { translationFontSize, banglaFontSize, isLineVisible } = useSettings();
 
   const surahIndex = useMemo(() => buildSurahIndex(getAllSurahs()), []);
   const ayahIndex = useMemo(
@@ -77,8 +77,9 @@ export default function SearchClient() {
         Search
       </h1>
       <p className="mb-6 text-brand-500">
-        Search the whole Qur&rsquo;an — English translation, Arabic text, surah
-        names, or a reference like <code>7:31</code>.
+        Search the whole Qur&rsquo;an — বাংলা অনুবাদ, বাংলা উচ্চারণ, English
+        translation, Arabic text, surah names, or a reference like{" "}
+        <code>7:31</code>.
       </p>
 
       <div className="relative mb-6">
@@ -86,7 +87,7 @@ export default function SearchClient() {
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="e.g. mercy, Al-A'raf, الرحمن, 2:255"
+          placeholder="e.g. করুণাময়, রাহমান, mercy, Al-A'raf, الرحمن, 2:255"
           className="w-full rounded-xl border border-brand-200 bg-white px-4 py-3 text-brand-900 outline-none ring-brand-400 focus:ring-2 dark:border-brand-800 dark:bg-brand-950 dark:text-brand-50"
           autoFocus
         />
@@ -149,12 +150,35 @@ export default function SearchClient() {
             <p className="mb-2 text-right text-xl leading-loose text-brand-900 dark:text-brand-50">
               {r.arabic}
             </p>
-            <p
-              style={{ fontSize: `${translationFontSize}px` }}
-              className="leading-relaxed text-brand-700 dark:text-brand-200"
-            >
-              {highlight(r.translation, query)}
-            </p>
+
+            {r.pronunciation && isLineVisible("pronunciation") && (
+              <p
+                lang="bn"
+                className="bangla-text mb-2 border-l-2 border-brand-200 pl-3 italic text-brand-600 dark:border-brand-800 dark:text-brand-300"
+                style={{ fontSize: `${banglaFontSize}px` }}
+              >
+                {highlight(r.pronunciation, query)}
+              </p>
+            )}
+
+            {r.bangla && isLineVisible("bangla") && (
+              <p
+                lang="bn"
+                className="bangla-text mb-2 text-brand-800 dark:text-brand-100"
+                style={{ fontSize: `${banglaFontSize}px` }}
+              >
+                {highlight(r.bangla, query)}
+              </p>
+            )}
+
+            {isLineVisible("translation") && (
+              <p
+                style={{ fontSize: `${translationFontSize}px` }}
+                className="leading-relaxed text-brand-700 dark:text-brand-200"
+              >
+                {highlight(r.translation, query)}
+              </p>
+            )}
           </li>
         ))}
       </ul>
@@ -172,8 +196,9 @@ export default function SearchClient() {
 
       {hasQuery && ayahs.length === 0 && surahs.length === 0 && (
         <p className="rounded-xl border border-dashed border-brand-200 p-8 text-center text-brand-400 dark:border-brand-800">
-          No matches for &ldquo;{query.trim()}&rdquo;. Try an English word, an
-          Arabic word, a surah name, or a reference like <code>7:31</code>.
+          No matches for &ldquo;{query.trim()}&rdquo;. Try a Bangla word, an
+          English word, an Arabic word, a surah name, or a reference like{" "}
+          <code>7:31</code>.
         </p>
       )}
     </div>

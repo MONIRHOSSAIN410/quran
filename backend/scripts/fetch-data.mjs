@@ -1,8 +1,11 @@
 /**
  * Downloads the complete Quran database (114 surahs, 6236 ayahs) with
- * Arabic text (Uthmani script) and the Sahih International English
- * translation, from the free Al Quran Cloud API:
- *   https://alquran.cloud/api
+ *   - Arabic text (Uthmani script)
+ *   - the Sahih International English translation
+ * from the free Al Quran Cloud API (https://alquran.cloud/api), then adds
+ *   - বাংলা উচ্চারণ  (generated offline from the Arabic)
+ *   - বাংলা অনুবাদ   (মুহিউদ্দীন খান)
+ * via scripts/add-bangla.mjs.
  *
  * Requires internet access. Run once with:
  *   bun run fetch-data
@@ -15,6 +18,7 @@
 import { writeFileSync, existsSync, readFileSync, mkdirSync } from "fs";
 import { fileURLToPath } from "url";
 import path from "path";
+import { addBangla } from "./add-bangla.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, "..", "data");
@@ -89,6 +93,14 @@ async function main() {
     }
     await sleep(DELAY_MS);
   }
+
+  // Bangla উচ্চারণ + অনুবাদ, on top of the Arabic and English already fetched.
+  console.log("\nAdding বাংলা উচ্চারণ and বাংলা অনুবাদ...");
+  const { pronounced, translated } = await addBangla(result);
+  writeFileSync(OUT_FILE, JSON.stringify(result, null, 2), "utf-8");
+  console.log(
+    `  ${pronounced} ayahs got উচ্চারণ, ${translated} got বাংলা অনুবাদ`
+  );
 
   const count = Object.keys(result).length;
   console.log(`\nFinished. ${count}/${TOTAL_SURAHS} surahs saved to ${OUT_FILE}`);
